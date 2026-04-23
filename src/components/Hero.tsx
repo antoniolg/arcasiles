@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import type { ReaderProfile } from '../types'
+import type { ReaderProfile } from '../domain/profiles/entities/ReaderProfile'
 
 interface HeroProps {
   clubsCount: number

@@ -5,35 +5,30 @@ import { ClubGrid } from '../components/ClubGrid'
 import { FilterBar } from '../components/FilterBar'
 import { Hero } from '../components/Hero'
 import { SuggestedClubs } from '../components/SuggestedClubs'
-import { availableCities, availableGenres, clubs } from '../data/clubs'
-import { getSuggestedClubs } from '../lib/suggestions'
-import type { FilterState, ReaderProfile } from '../types'
+import type { ClubFilters } from '../domain/clubs/value-objects/ClubFilters'
+import type { ReaderProfile } from '../domain/profiles/entities/ReaderProfile'
+import { useClubCatalog } from '../presentation/hooks/useClubCatalog'
 
 interface HomePageProps {
   profile: ReaderProfile | null
 }
 
-const initialFilters: FilterState = {
+const initialFilters: ClubFilters = {
   modality: 'all',
   city: 'all',
   genre: 'all',
 }
 
 export function HomePage({ profile }: HomePageProps) {
-  const [filters, setFilters] = useState<FilterState>(initialFilters)
-  const featuredClub = clubs[0]
-
-  const filteredClubs = clubs.filter((club) => {
-    const matchesModality =
-      filters.modality === 'all' || club.modality === filters.modality
-    const matchesCity = filters.city === 'all' || club.city === filters.city
-    const matchesGenre =
-      filters.genre === 'all' || club.genres.includes(filters.genre)
-
-    return matchesModality && matchesCity && matchesGenre
-  })
-
-  const suggestions = getSuggestedClubs(clubs, profile)
+  const [filters, setFilters] = useState<ClubFilters>(initialFilters)
+  const {
+    clubs,
+    filteredClubs,
+    suggestions,
+    availableCities,
+    availableGenres,
+    featuredClub,
+  } = useClubCatalog(filters, profile)
 
   return (
     <>
@@ -54,13 +49,19 @@ export function HomePage({ profile }: HomePageProps) {
         </div>
 
         <aside className="workspace-side">
-          <SuggestedClubs profile={profile} suggestions={suggestions} />
+          <SuggestedClubs
+            clubsById={new Map(clubs.map((club) => [club.id, club]))}
+            profile={profile}
+            suggestions={suggestions}
+          />
         </aside>
       </section>
 
-      <section className="home-preview section-shell">
-        <ClubDetailHeader club={featuredClub} />
-      </section>
+      {featuredClub ? (
+        <section className="home-preview section-shell">
+          <ClubDetailHeader club={featuredClub} />
+        </section>
+      ) : null}
 
       <section className="profile-preview section-shell" id="como-funciona">
         <div className="profile-preview-copy">

@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { ProfileForm } from '../components/ProfileForm'
-import type { ReaderProfile } from '../types'
+import { getClubCatalogMetadata } from '../application/clubs/use-cases/getClubCatalogMetadata'
+import type { ReaderProfile } from '../domain/profiles/entities/ReaderProfile'
+import { clubRepository } from '../infrastructure/container'
 
 interface ProfilePageProps {
   profile: ReaderProfile | null
@@ -8,6 +10,8 @@ interface ProfilePageProps {
 }
 
 export function ProfilePage({ profile, onSave }: ProfilePageProps) {
+  const { availableCities, availableGenres } = getClubCatalogMetadata(clubRepository)
+
   return (
     <section className="profile-layout section-shell">
       <div>
@@ -19,7 +23,12 @@ export function ProfilePage({ profile, onSave }: ProfilePageProps) {
           </p>
         </div>
 
-        <ProfileForm profile={profile} onSave={onSave} />
+        <ProfileForm
+          cities={availableCities}
+          genres={availableGenres}
+          profile={profile}
+          onSave={onSave}
+        />
       </div>
 
       <aside className="workspace-side">

@@ -1,4 +1,4 @@
-import type { Club } from '../types'
+import type { Club } from '../domain/clubs/entities/Club'
 
 interface ClubDetailHeaderProps {
   club: Club

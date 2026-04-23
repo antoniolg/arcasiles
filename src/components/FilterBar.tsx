@@ -1,12 +1,12 @@
-import type { FilterState } from '../types'
+import type { ClubFilters } from '../domain/clubs/value-objects/ClubFilters'
 
 interface FilterBarProps {
-  filters: FilterState
+  filters: ClubFilters
   cities: string[]
   genres: string[]
   visibleCount: number
   totalCount: number
-  onChange: (nextState: FilterState) => void
+  onChange: (nextState: ClubFilters) => void
 }
 
 export function FilterBar({
@@ -33,7 +33,7 @@ export function FilterBar({
             id="modality"
             value={filters.modality}
             onChange={(event) =>
-              onChange({ ...filters, modality: event.target.value as FilterState['modality'] })
+              onChange({ ...filters, modality: event.target.value as ClubFilters['modality'] })
             }
           >
             <option value="all">Todas</option>

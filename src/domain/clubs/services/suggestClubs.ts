@@ -1,9 +1,11 @@
-import type { Club, ReaderProfile, SuggestionResult } from '../types'
+import type { Club } from '../entities/Club'
+import type { ReaderProfile } from '../../profiles/entities/ReaderProfile'
+import type { ClubSuggestion } from '../value-objects/ClubSuggestion'
 
-export function getSuggestedClubs(
+export function suggestClubs(
   clubs: Club[],
   profile: ReaderProfile | null,
-): SuggestionResult[] {
+): ClubSuggestion[] {
   if (!profile) {
     return []
   }

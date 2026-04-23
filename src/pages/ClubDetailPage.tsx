@@ -1,9 +1,8 @@
 import { Link, useParams } from 'react-router-dom'
 import { ClubDetailHeader } from '../components/ClubDetailHeader'
 import { EmptyState } from '../components/EmptyState'
-import { clubs } from '../data/clubs'
-import { getSuggestedClubs } from '../lib/suggestions'
-import type { ReaderProfile } from '../types'
+import type { ReaderProfile } from '../domain/profiles/entities/ReaderProfile'
+import { useClubDetail } from '../presentation/hooks/useClubDetail'
 
 interface ClubDetailPageProps {
   profile: ReaderProfile | null
@@ -11,7 +10,7 @@ interface ClubDetailPageProps {
 
 export function ClubDetailPage({ profile }: ClubDetailPageProps) {
   const { clubId } = useParams()
-  const club = clubs.find(({ id }) => id === clubId)
+  const { club, relatedSuggestion } = useClubDetail(clubId, profile)
 
   if (!club) {
     return (
@@ -25,9 +24,6 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
       </section>
     )
   }
-
-  const relatedSuggestion = getSuggestedClubs([club], profile)[0]
-
   return (
     <section className="detail-layout section-shell">
       <div>

@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { loadProfile, saveProfile } from './storage'
+import { loadReaderProfile } from '../application/profiles/use-cases/loadReaderProfile'
+import { saveReaderProfile } from '../application/profiles/use-cases/saveReaderProfile'
+import { LocalStorageProfileRepository } from '../infrastructure/profiles/repositories/LocalStorageProfileRepository'
 
 const profileStorageKey = 'arcasiles.reader-profile'
 
@@ -31,6 +33,7 @@ describe('storage', () => {
   })
 
   it('persists and restores a reader profile', () => {
+    const profileRepository = new LocalStorageProfileRepository()
     const profile = {
       city: 'Valencia',
       favoriteGenres: ['Fantasia'],
@@ -38,24 +41,26 @@ describe('storage', () => {
       preferredModality: 'presencial' as const,
     }
 
-    saveProfile(profile)
+    saveReaderProfile(profileRepository, profile)
 
     expect(window.localStorage.getItem(profileStorageKey)).toBe(
       JSON.stringify(profile),
     )
-    expect(loadProfile()).toEqual(profile)
+    expect(loadReaderProfile(profileRepository)).toEqual(profile)
   })
 
   it('returns null when the stored profile is malformed JSON', () => {
+    const profileRepository = new LocalStorageProfileRepository()
     window.localStorage.setItem(profileStorageKey, '{broken json')
 
-    expect(loadProfile()).toBeNull()
+    expect(loadReaderProfile(profileRepository)).toBeNull()
   })
 
   it('removes the profile when saving null', () => {
+    const profileRepository = new LocalStorageProfileRepository()
     window.localStorage.setItem(profileStorageKey, JSON.stringify({ city: 'Madrid' }))
 
-    saveProfile(null)
+    saveReaderProfile(profileRepository, null)
 
     expect(window.localStorage.getItem(profileStorageKey)).toBeNull()
   })

@@ -1,8 +1,13 @@
 import { useState } from 'react'
-import { availableCities, availableGenres } from '../data/clubs'
-import type { Pace, ReaderModalityPreference, ReaderProfile } from '../types'
+import type { Pace } from '../domain/clubs/entities/Club'
+import type {
+  ReaderModalityPreference,
+  ReaderProfile,
+} from '../domain/profiles/entities/ReaderProfile'
 
 interface ProfileFormProps {
+  cities: string[]
+  genres: string[]
   profile: ReaderProfile | null
   onSave: (profile: ReaderProfile) => void
 }
@@ -14,7 +19,7 @@ const emptyProfile: ReaderProfile = {
   pace: 'mensual',
 }
 
-export function ProfileForm({ profile, onSave }: ProfileFormProps) {
+export function ProfileForm({ cities, genres, profile, onSave }: ProfileFormProps) {
   const [draft, setDraft] = useState<ReaderProfile>(profile ?? emptyProfile)
 
   const toggleGenre = (genre: string) => {
@@ -50,7 +55,7 @@ export function ProfileForm({ profile, onSave }: ProfileFormProps) {
         <div className="profile-group full">
           <label className="profile-label">Generos favoritos</label>
           <div className="checkbox-grid">
-            {availableGenres.map((genre) => (
+            {genres.map((genre) => (
               <label className="checkbox-pill" key={genre}>
                 <input
                   type="checkbox"
@@ -120,7 +125,7 @@ export function ProfileForm({ profile, onSave }: ProfileFormProps) {
             }
           >
             <option value="">Sin preferencia</option>
-            {availableCities.map((city) => (
+            {cities.map((city) => (
               <option key={city} value={city}>
                 {city}
               </option>

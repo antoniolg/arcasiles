@@ -1,14 +1,20 @@
 import { Link } from 'react-router-dom'
-import { clubs } from '../data/clubs'
-import type { ReaderProfile, SuggestionResult } from '../types'
+import type { Club } from '../domain/clubs/entities/Club'
+import type { ClubSuggestion } from '../domain/clubs/value-objects/ClubSuggestion'
+import type { ReaderProfile } from '../domain/profiles/entities/ReaderProfile'
 import { EmptyState } from './EmptyState'
 
 interface SuggestedClubsProps {
+  clubsById: Map<string, Club>
   profile: ReaderProfile | null
-  suggestions: SuggestionResult[]
+  suggestions: ClubSuggestion[]
 }
 
-export function SuggestedClubs({ profile, suggestions }: SuggestedClubsProps) {
+export function SuggestedClubs({
+  clubsById,
+  profile,
+  suggestions,
+}: SuggestedClubsProps) {
   return (
     <section className="panel suggested-panel">
       <div className="section-header">
@@ -32,7 +38,7 @@ export function SuggestedClubs({ profile, suggestions }: SuggestedClubsProps) {
       ) : (
         <div className="suggestion-list">
           {suggestions.map((suggestion) => {
-            const club = clubs.find(({ id }) => id === suggestion.clubId)
+            const club = clubsById.get(suggestion.clubId)
 
             if (!club) {
               return null

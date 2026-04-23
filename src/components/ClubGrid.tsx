@@ -1,4 +1,4 @@
-import type { Club } from '../types'
+import type { Club } from '../domain/clubs/entities/Club'
 import { ClubCard } from './ClubCard'
 import { EmptyState } from './EmptyState'
 

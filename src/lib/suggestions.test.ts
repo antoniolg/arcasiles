@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import type { Club } from '../types'
-import { getSuggestedClubs } from './suggestions'
+import type { Club } from '../domain/clubs/entities/Club'
+import { InMemoryClubRepository } from '../infrastructure/clubs/repositories/InMemoryClubRepository'
+import { getSuggestedClubs } from '../application/clubs/use-cases/getSuggestedClubs'
 
 const testClubs: Club[] = [
   {
@@ -79,11 +80,14 @@ const testClubs: Club[] = [
 
 describe('getSuggestedClubs', () => {
   it('returns no suggestions when there is no reader profile', () => {
-    expect(getSuggestedClubs(testClubs, null)).toEqual([])
+    const clubRepository = new InMemoryClubRepository(testClubs)
+
+    expect(getSuggestedClubs(clubRepository, null)).toEqual([])
   })
 
   it('prioritizes clubs that match city, modality, pace, and genres', () => {
-    const suggestions = getSuggestedClubs(testClubs, {
+    const clubRepository = new InMemoryClubRepository(testClubs)
+    const suggestions = getSuggestedClubs(clubRepository, {
       city: 'Madrid',
       favoriteGenres: ['Narrativa', 'Contemporanea'],
       pace: 'mensual',

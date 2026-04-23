@@ -1,18 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import { AppShell } from './components/AppShell'
 import { ClubDetailPage } from './pages/ClubDetailPage'
 import { HomePage } from './pages/HomePage'
 import { ProfilePage } from './pages/ProfilePage'
-import { loadProfile, saveProfile } from './lib/storage'
-import type { ReaderProfile } from './types'
+import { useReaderProfile } from './presentation/hooks/useReaderProfile'
 
 function App() {
-  const [profile, setProfile] = useState<ReaderProfile | null>(() => loadProfile())
-
-  useEffect(() => {
-    saveProfile(profile)
-  }, [profile])
+  const { profile, saveProfile } = useReaderProfile()
 
   return (
     <BrowserRouter>
@@ -22,7 +16,7 @@ function App() {
           <Route path="/club/:clubId" element={<ClubDetailPage profile={profile} />} />
           <Route
             path="/perfil"
-            element={<ProfilePage profile={profile} onSave={setProfile} />}
+            element={<ProfilePage profile={profile} onSave={saveProfile} />}
           />
         </Routes>
       </AppShell>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import type { Club } from '../types'
+import type { Club } from '../domain/clubs/entities/Club'
 import { Badge } from './Badge'
 
 interface ClubCardProps {
