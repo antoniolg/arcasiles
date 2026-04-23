@@ -77,10 +77,11 @@ export function SuggestedClubs({ profile, suggestions }: SuggestedClubsProps) {
           </p>
           <strong>Crear mi perfil lector</strong>
         </div>
-        <div className="mini-mascot" aria-hidden="true">
-          <div className="mini-mascot-head"></div>
-          <div className="mini-mascot-book"></div>
-        </div>
+        <img
+          className="profile-callout-image"
+          src="/mascots/artichoke-wave.png"
+          alt=""
+        />
       </Link>
     </section>
   )

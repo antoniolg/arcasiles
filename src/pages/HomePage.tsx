@@ -94,10 +94,11 @@ export function HomePage({ profile }: HomePageProps) {
         </div>
 
         <div className="profile-preview-art" aria-hidden="true">
-          <div className="profile-preview-mascot">
-            <div className="mini-mascot-head large"></div>
-            <div className="mini-mascot-book large"></div>
-          </div>
+          <img
+            className="profile-preview-image"
+            src="/mascots/artichoke-read.png"
+            alt=""
+          />
         </div>
       </section>
 

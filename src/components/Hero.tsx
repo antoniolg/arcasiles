@@ -33,21 +33,11 @@ export function Hero({ clubsCount, profile }: HeroProps) {
 
         <div className="hero-art" aria-hidden="true">
           <div className="hero-b-shape">B</div>
-          <div className="hero-mascot hero-mascot-jump">
-            <div className="hero-book"></div>
-            <div className="hero-mascot-head"></div>
-            <div className="hero-mascot-eye left"></div>
-            <div className="hero-mascot-eye right"></div>
-            <div className="hero-mascot-body"></div>
-            <div className="hero-mascot-arm left"></div>
-            <div className="hero-mascot-arm right"></div>
-            <div className="hero-mascot-hand left"></div>
-            <div className="hero-mascot-hand right"></div>
-            <div className="hero-mascot-leg left"></div>
-            <div className="hero-mascot-leg right"></div>
-            <div className="hero-mascot-foot left"></div>
-            <div className="hero-mascot-foot right"></div>
-          </div>
+          <img
+            className="hero-mascot-image"
+            src="/mascots/artichoke-jump.png"
+            alt=""
+          />
 
           <div className="hero-floating-note">
             <strong>Lee mas.</strong>
