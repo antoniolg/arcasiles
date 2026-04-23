@@ -2,9 +2,11 @@ import type { Club } from '../domain/clubs/entities/Club'
 
 interface ClubDetailHeaderProps {
   club: Club
+  hasRequested: boolean
+  onRequestJoin: () => void
 }
 
-export function ClubDetailHeader({ club }: ClubDetailHeaderProps) {
+export function ClubDetailHeader({ club, hasRequested, onRequestJoin }: ClubDetailHeaderProps) {
   return (
     <section className="detail-hero">
       <div className="detail-card">
@@ -49,8 +51,13 @@ export function ClubDetailHeader({ club }: ClubDetailHeaderProps) {
         </div>
 
         <div className="detail-cta">
-          <button type="button" className="button-primary">
-            Solicitar unirse
+          <button
+            type="button"
+            className="button-primary"
+            onClick={onRequestJoin}
+            disabled={hasRequested}
+          >
+            {hasRequested ? 'Solicitud enviada' : 'Solicitar unirse'}
           </button>
           <button type="button" className="button-secondary">
             Guardar club
