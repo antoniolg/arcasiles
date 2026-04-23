@@ -84,11 +84,6 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
     saveJoinRequests(joinRequests)
   }, [joinRequests])
 
-  useEffect(() => {
-    setIsJoinFlowOpen(false)
-    setRequestError('')
-  }, [club?.id])
-
   const handleRequestSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setRequestError('')
@@ -307,7 +302,7 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
                     />
                   </label>
 
-                  {requestError ? <p style={{ margin: 0 }}>{requestError}</p>}
+                  {requestError ? <p style={{ margin: 0 }}>{requestError}</p> : null}
 
                   <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                     <button type="submit" className="button-primary">

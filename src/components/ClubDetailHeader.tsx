@@ -2,11 +2,15 @@ import type { Club } from '../domain/clubs/entities/Club'
 
 interface ClubDetailHeaderProps {
   club: Club
-  hasRequested: boolean
-  onRequestJoin: () => void
+  hasRequested?: boolean
+  onRequestJoin?: () => void
 }
 
-export function ClubDetailHeader({ club, hasRequested, onRequestJoin }: ClubDetailHeaderProps) {
+export function ClubDetailHeader({
+  club,
+  hasRequested = false,
+  onRequestJoin = () => undefined,
+}: ClubDetailHeaderProps) {
   return (
     <section className="detail-hero">
       <div className="detail-card">
