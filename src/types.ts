@@ -15,6 +15,10 @@ export interface Club {
   hostName: string
   image: string
   pace: Pace
+  imageUrl: string
+  members: number
+  venue: string
+  about: string
 }
 
 export interface ReaderProfile {

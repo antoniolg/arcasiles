@@ -1,5 +1,4 @@
 import type { Club } from '../types'
-import { Badge } from './Badge'
 
 interface ClubDetailHeaderProps {
   club: Club
@@ -15,17 +14,19 @@ export function ClubDetailHeader({ club }: ClubDetailHeaderProps) {
           <p className="page-copy">{club.description}</p>
         </div>
 
-        <div className="badge-row">
-          <Badge tone={club.modality === 'online' ? 'default' : 'warm'}>
-            {club.modality}
-          </Badge>
-          <Badge tone="ghost">{club.city}</Badge>
-          <Badge tone="ghost">{club.pace}</Badge>
-          {club.genres.map((genre) => (
-            <Badge key={genre} tone="ghost">
-              {genre}
-            </Badge>
-          ))}
+        <div className="detail-stat-grid">
+          <div className="detail-stat">
+            <span>{club.modality === 'online' ? 'Online' : 'Presencial'}</span>
+            <strong>{club.city}, Espana</strong>
+          </div>
+          <div className="detail-stat">
+            <span>{club.members} miembros</span>
+            <strong>Grupo activo</strong>
+          </div>
+          <div className="detail-stat">
+            <span>{club.genres[0]}</span>
+            <strong>Genero principal</strong>
+          </div>
         </div>
 
         <div className="detail-list">
@@ -38,12 +39,12 @@ export function ClubDetailHeader({ club }: ClubDetailHeaderProps) {
             <strong>{club.nextDate}</strong>
           </div>
           <div className="detail-row">
-            <span>Persona anfitriona</span>
-            <strong>{club.hostName}</strong>
+            <span>Ubicacion</span>
+            <strong>{club.venue}</strong>
           </div>
           <div className="detail-row">
-            <span>Plazas disponibles</span>
-            <strong>{club.spotsLeft}</strong>
+            <span>Organiza</span>
+            <strong>{club.hostName}</strong>
           </div>
         </div>
 
@@ -52,13 +53,55 @@ export function ClubDetailHeader({ club }: ClubDetailHeaderProps) {
             Solicitar unirse
           </button>
           <button type="button" className="button-secondary">
-            Me interesa
+            Guardar club
           </button>
         </div>
       </div>
 
-      <div className="detail-poster" aria-hidden="true">
-        <span>{club.image}</span>
+      <div className="detail-poster">
+        <div
+          className="detail-poster-image"
+          style={{
+            backgroundImage: `linear-gradient(180deg, rgba(22, 18, 31, 0.08), rgba(22, 18, 31, 0.28)), url(${club.imageUrl})`,
+          }}
+        >
+          <span>1/6</span>
+        </div>
+      </div>
+
+      <div className="detail-side-panel">
+        <div className="detail-side-block">
+          <h3>Sobre el club</h3>
+          <p>{club.about}</p>
+          <a href="#sobre-nosotros">Ver mas</a>
+        </div>
+
+        <div className="detail-side-block detail-book-block">
+          <h3>Proxima lectura</h3>
+          <div className="detail-book-card">
+            <div
+              className="detail-book-cover"
+              style={{
+                backgroundImage: `linear-gradient(180deg, rgba(31, 25, 43, 0.18), rgba(31, 25, 43, 0.4)), url(${club.imageUrl})`,
+              }}
+            />
+            <div>
+              <strong>{club.nextBook}</strong>
+              <span>{club.genres[0]}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="detail-side-block detail-host-block">
+          <h3>Organiza</h3>
+          <div className="detail-host">
+            <span className="detail-host-avatar">{club.hostName.charAt(0)}</span>
+            <div>
+              <strong>{club.hostName}</strong>
+              <span>Creadora del club</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )

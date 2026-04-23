@@ -39,10 +39,10 @@ export function ProfileForm({ profile, onSave }: ProfileFormProps) {
       }}
     >
       <div className="section-header">
-        <div className="section-kicker">Tu perfil</div>
-        <h2>Condiciona las sugerencias con dos minutos de setup</h2>
+        <div className="section-kicker">Perfil lector</div>
+        <h2>Cuentanos que te gusta leer</h2>
         <p className="section-subtitle">
-          Guardamos preferencias en local para que la demo tenga continuidad entre pantallas y recargas.
+          Personaliza tu perfil y recibe recomendaciones de clubes y lecturas que encajan contigo.
         </p>
       </div>
 

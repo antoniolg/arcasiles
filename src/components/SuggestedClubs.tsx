@@ -12,11 +12,7 @@ export function SuggestedClubs({ profile, suggestions }: SuggestedClubsProps) {
   return (
     <section className="panel suggested-panel">
       <div className="section-header">
-        <div className="section-kicker">Para ti</div>
-        <h2 className="section-title">Sugerencias condicionadas por tu perfil</h2>
-        <p className="section-subtitle">
-          Simulamos recomendacion inteligente con reglas explicables para la demo.
-        </p>
+        <div className="section-kicker">Sugerencias para ti</div>
       </div>
 
       {!profile ? (
@@ -44,25 +40,48 @@ export function SuggestedClubs({ profile, suggestions }: SuggestedClubsProps) {
 
             return (
               <Link key={suggestion.clubId} className="suggestion-item" to={`/club/${club.id}`}>
-                <strong>{club.name}</strong>
-                <p>
-                  {club.city} · {club.modality} · {club.nextBook}
-                </p>
+                <div
+                  className="suggestion-thumb"
+                  style={{
+                    backgroundImage: `linear-gradient(180deg, rgba(18, 13, 28, 0.08), rgba(18, 13, 28, 0.32)), url(${club.imageUrl})`,
+                  }}
+                />
 
-                <div className="suggestion-reasons">
-                  {suggestion.reasons.map((reason) => (
-                    <span className="reason-pill" key={reason}>
-                      {reason}
-                    </span>
-                  ))}
+                <div className="suggestion-content">
+                  <strong>{club.name}</strong>
+                  <p>
+                    {club.city}, {club.city === 'Online' ? 'Online' : 'Espana'} ·{' '}
+                    {club.modality === 'online' ? 'Online' : 'Presencial'}
+                  </p>
+
+                  <span className="suggestion-meta">{club.members} miembros</span>
+
+                  <div className="suggestion-reasons">
+                    <span className="reason-pill">{club.genres[0]}</span>
+                  </div>
                 </div>
-
-                <span className="suggestion-score">{suggestion.score} puntos de afinidad</span>
               </Link>
             )
           })}
         </div>
       )}
+
+      <button type="button" className="button-secondary sidebar-button">
+        Ver mas sugerencias
+      </button>
+
+      <Link to="/perfil" className="profile-callout">
+        <div>
+          <p>
+            Cuentanos que te gusta leer y te recomendaremos mejores clubes.
+          </p>
+          <strong>Crear mi perfil lector</strong>
+        </div>
+        <div className="mini-mascot" aria-hidden="true">
+          <div className="mini-mascot-head"></div>
+          <div className="mini-mascot-book"></div>
+        </div>
+      </Link>
     </section>
   )
 }

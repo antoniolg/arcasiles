@@ -35,11 +35,10 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
 
         <div className="detail-card" style={{ marginTop: '24px' }}>
           <div className="section-header">
-            <div className="section-kicker">Lo que ensenaria en demo</div>
+            <div className="section-kicker">Experiencia</div>
             <h2>Una ficha lista para decidir si quieres entrar</h2>
             <p className="section-subtitle">
-              El foco del MVP es que la persona vea contexto, proxima lectura y una
-              llamada clara a la accion.
+              El foco es que la persona vea contexto, siguiente lectura y una llamada clara a la accion sin perder el tono editorial.
             </p>
           </div>
 
@@ -91,9 +90,7 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
                   </span>
                 ))}
               </div>
-              <span className="suggestion-score">
-                {relatedSuggestion.score} puntos de afinidad
-              </span>
+              <span className="suggestion-score">{relatedSuggestion.score} puntos de afinidad</span>
             </div>
           ) : (
             <EmptyState
@@ -108,7 +105,7 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
             <div className="section-kicker">Volver</div>
             <h2 className="section-title">Sigue explorando</h2>
             <p className="section-subtitle">
-              El flujo pensado para el reto es entrar, comparar dos o tres clubes y cerrar la historia con el perfil.
+              El flujo pensado para el reto es entrar, comparar dos o tres clubes y volver al directorio con una decision clara.
             </p>
           </div>
 

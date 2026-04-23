@@ -15,8 +15,7 @@ export function ProfilePage({ profile, onSave }: ProfilePageProps) {
           <div className="section-kicker">Perfil lector</div>
           <h1 className="page-title">Haz que la recomendacion parezca producto real</h1>
           <p className="page-copy">
-            Esta pantalla hace dos trabajos: justificar personalizacion y dejar
-            persistencia local para que la demo se note viva en toda la app.
+            Esta pantalla justifica la personalizacion y deja persistencia local para que la experiencia se note viva en toda la app.
           </p>
         </div>
 
@@ -29,8 +28,7 @@ export function ProfilePage({ profile, onSave }: ProfilePageProps) {
             <div className="section-kicker">Que se guarda</div>
             <h2 className="section-title">Preferencias que cambian el ranking</h2>
             <p className="section-subtitle">
-              No hay IA real ni backend hoy: la gracia esta en que el criterio sea
-              explicable y visible.
+              No hay IA real ni backend hoy: la gracia esta en que el criterio sea explicable y visible.
             </p>
           </div>
 

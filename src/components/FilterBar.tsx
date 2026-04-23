@@ -21,12 +21,9 @@ export function FilterBar({
     <section className="panel" id="directorio">
       <div className="panel-header">
         <div>
-          <div className="panel-kicker">Directorio</div>
+          <div className="panel-kicker">Descubrir</div>
           <h2 className="panel-title">Encuentra un club que ya se sienta tuyo</h2>
         </div>
-        <p className="panel-subtitle">
-          Una capa de filtro simple para moverte rapido durante la demo.
-        </p>
       </div>
 
       <div className="filter-bar">
@@ -88,15 +85,15 @@ export function FilterBar({
             })
           }
         >
-          Limpiar filtros
+          Mas filtros
         </button>
       </div>
 
       <div className="filter-summary">
         <span>
-          Mostrando {visibleCount} de {totalCount} clubes
+          {visibleCount} de {totalCount} clubes encontrados
         </span>
-        <span>Explora, entra en detalle y ensena la siguiente lectura</span>
+        <span>Ordenar por: Relevancia</span>
       </div>
     </section>
   )

@@ -11,13 +11,11 @@ export function Hero({ clubsCount, profile }: HeroProps) {
     <section className="hero section-shell">
       <div className="hero-copy fade-up">
         <div className="hero-overline">Reto B</div>
-        <h1 className="hero-title">
-          Clubes de lectura que <span className="hero-title-accent">encajan</span>{' '}
-          contigo.
-        </h1>
+        <div className="hero-letter">B</div>
+        <h1 className="hero-title">Clubes de lectura</h1>
         <p className="hero-description">
-          Descubre grupos reales, filtra por modalidad y ciudad, y deja que tu
-          perfil lector te ordene primero lo que mas te va a apetecer abrir.
+          Una app que <span className="hero-title-accent">conecta personas</span> con
+          clubes de lectura reales, tanto online como presenciales en su ciudad.
         </p>
 
         <div className="hero-actions">
@@ -28,24 +26,15 @@ export function Hero({ clubsCount, profile }: HeroProps) {
             {profile ? 'Ajustar mi perfil' : 'Crear mi perfil lector'}
           </Link>
         </div>
-
-        <div className="hero-meta">
-          <span className="hero-chip">{clubsCount} clubes listos para demo</span>
-          <span className="hero-chip">
-            {profile ? 'Sugerencias activas' : 'Activa recomendaciones'}
-          </span>
-          <span className="hero-chip">Online y presenciales</span>
-        </div>
       </div>
 
       <aside className="hero-side fade-up delay-1">
         <div className="hero-side-label">Batalla de IA · 23.04</div>
 
         <div className="hero-art" aria-hidden="true">
-          <div className="hero-art-orb top"></div>
-          <div className="hero-art-orb bottom"></div>
-
-          <div className="hero-mascot">
+          <div className="hero-b-shape">B</div>
+          <div className="hero-mascot hero-mascot-jump">
+            <div className="hero-book"></div>
             <div className="hero-mascot-head"></div>
             <div className="hero-mascot-eye left"></div>
             <div className="hero-mascot-eye right"></div>
@@ -59,13 +48,20 @@ export function Hero({ clubsCount, profile }: HeroProps) {
             <div className="hero-mascot-foot left"></div>
             <div className="hero-mascot-foot right"></div>
           </div>
+
+          <div className="hero-floating-note">
+            <strong>Lee mas.</strong>
+            <span>Conecta mas.</span>
+            <em>Pertenece.</em>
+          </div>
         </div>
 
         <div className="hero-side-note">
-          <small>MVP en 60 min</small>
+          <small>{clubsCount} clubes para descubrir</small>
           <p>
-            Directorio con tarjetas, filtros por modalidad y ciudad, ficha de
-            club y perfil que condiciona sugerencias.
+            {profile
+              ? 'Tu perfil ya esta activando sugerencias personalizadas en toda la experiencia.'
+              : 'Crea tu perfil lector y cambia el orden del directorio con recomendaciones visibles.'}
           </p>
         </div>
       </aside>

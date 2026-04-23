@@ -6,8 +6,7 @@ export function AppShell({ children }: PropsWithChildren) {
     <div className="app-shell">
       <header className="topbar">
         <NavLink to="/" className="brand-lockup" aria-label="Arcasiles">
-          <span>arca</span>
-          <span>siles</span>
+          aRCA<span>SILES</span>
         </NavLink>
 
         <nav className="topbar-nav" aria-label="Principal">
@@ -28,7 +27,21 @@ export function AppShell({ children }: PropsWithChildren) {
           >
             Mi perfil
           </NavLink>
+          <a className="topbar-link" href="#como-funciona">
+            Como funciona
+          </a>
+          <a className="topbar-link" href="#sobre-nosotros">
+            Sobre nosotros
+          </a>
+          <a className="topbar-link" href="#blog">
+            Blog
+          </a>
         </nav>
+
+        <div className="topbar-meta">
+          <span className="topbar-city">Madrid</span>
+          <span className="topbar-avatar">A</span>
+        </div>
       </header>
 
       <main className="app-main">{children}</main>
