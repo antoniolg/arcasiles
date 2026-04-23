@@ -73,20 +73,6 @@ export function FilterBar({
             ))}
           </select>
         </div>
-
-        <button
-          type="button"
-          className="filter-reset"
-          onClick={() =>
-            onChange({
-              modality: 'all',
-              city: 'all',
-              genre: 'all',
-            })
-          }
-        >
-          Mas filtros
-        </button>
       </div>
 
       <div className="filter-summary">

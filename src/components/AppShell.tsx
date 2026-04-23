@@ -27,6 +27,14 @@ export function AppShell({ children }: PropsWithChildren) {
           >
             Mi perfil
           </NavLink>
+          <NavLink
+            to="/mapa"
+            className={({ isActive }) =>
+              isActive ? 'topbar-link active' : 'topbar-link'
+            }
+          >
+            Mapa
+          </NavLink>
           <a className="topbar-link" href="#como-funciona">
             Como funciona
           </a>

@@ -442,7 +442,7 @@ img {
 
 .filter-bar {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
   margin-bottom: 18px;
 }
@@ -470,16 +470,6 @@ img {
   color: var(--ink);
 }
 
-.filter-reset {
-  align-self: end;
-  min-height: 48px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(37, 35, 41, 0.12);
-  color: var(--ink);
-  font-weight: 700;
-}
-
 .filter-summary {
   display: flex;
   justify-content: space-between;
@@ -494,6 +484,62 @@ img {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+  padding: 18px 0 6px;
+}
+
+.pagination-summary {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.pagination-controls,
+.pagination-pages {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pagination-button,
+.pagination-page {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(37, 35, 41, 0.12);
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--ink);
+  font-weight: 700;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.pagination-button:hover:not(:disabled),
+.pagination-page:hover:not(.pagination-page-active) {
+  transform: translateY(-1px);
+  border-color: rgba(107, 75, 180, 0.28);
+}
+
+.pagination-page-active {
+  background: var(--purple);
+  border-color: var(--purple);
+  color: #fff;
+}
+
+.pagination-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
 }
 
 .club-card {
@@ -1073,6 +1119,342 @@ img {
   line-height: 1.5;
 }
 
+.map-page {
+  display: grid;
+  gap: 28px;
+}
+
+.map-page-intro {
+  max-width: 56rem;
+}
+
+.map-page-copy {
+  max-width: 44rem;
+  font-size: 1.06rem;
+}
+
+.map-overview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.map-stat-card,
+.spain-map-card,
+.map-city-panel,
+.online-clubs-panel {
+  border-radius: 24px;
+  border: 1px solid rgba(37, 35, 41, 0.08);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: var(--shadow-soft);
+}
+
+.map-stat-card {
+  display: grid;
+  gap: 8px;
+  padding: 22px 24px;
+}
+
+.map-stat-card span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.map-stat-card strong {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.spain-map-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) 390px;
+  gap: 24px;
+  align-items: start;
+}
+
+.spain-map-card {
+  padding: 26px;
+}
+
+.spain-map-copy {
+  max-width: 34rem;
+}
+
+.spain-map-board {
+  position: relative;
+  margin-top: 26px;
+  min-height: 660px;
+  padding: 30px;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(240, 181, 60, 0.2), transparent 22%),
+    radial-gradient(circle at 82% 30%, rgba(107, 75, 180, 0.16), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(245, 241, 251, 0.78));
+  overflow: hidden;
+}
+
+.spain-map-illustration {
+  position: absolute;
+  inset: 42px 24px 72px;
+  width: calc(100% - 48px);
+  height: calc(100% - 114px);
+}
+
+.spain-map-shape {
+  fill: rgba(107, 75, 180, 0.12);
+}
+
+.spain-map-outline {
+  fill: none;
+  stroke: rgba(37, 35, 41, 0.28);
+  stroke-width: 5;
+  stroke-linejoin: round;
+}
+
+.spain-map-interior {
+  fill: none;
+  stroke: rgba(107, 75, 180, 0.18);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 8 12;
+}
+
+.spain-map-island {
+  fill: rgba(240, 181, 60, 0.22);
+  stroke: rgba(37, 35, 41, 0.18);
+  stroke-width: 3;
+}
+
+.spain-map-points {
+  position: absolute;
+  inset: 0;
+}
+
+.map-point {
+  position: absolute;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  border: 0;
+  background: transparent;
+  transform: translate(-50%, -50%);
+}
+
+.map-point-core {
+  display: block;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0) 38%),
+    linear-gradient(135deg, var(--purple), #8c70ca);
+  box-shadow:
+    0 0 0 8px rgba(107, 75, 180, 0.12),
+    0 14px 30px rgba(83, 52, 141, 0.26);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.map-point:hover .map-point-core,
+.map-point.is-active .map-point-core {
+  transform: scale(1.08);
+  box-shadow:
+    0 0 0 10px rgba(107, 75, 180, 0.16),
+    0 16px 34px rgba(83, 52, 141, 0.32);
+}
+
+.map-point-label {
+  display: grid;
+  gap: 2px;
+  min-width: 112px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-soft);
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.map-point-label strong {
+  color: var(--ink);
+  font-size: 0.94rem;
+}
+
+.map-legend {
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.map-legend-dot {
+  display: inline-block;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--purple), #8c70ca);
+  box-shadow: 0 0 0 6px rgba(107, 75, 180, 0.12);
+}
+
+.map-legend-dot.small {
+  width: 14px;
+  height: 14px;
+}
+
+.map-legend-dot.medium {
+  width: 20px;
+  height: 20px;
+}
+
+.map-legend-dot.large {
+  width: 26px;
+  height: 26px;
+}
+
+.map-city-panel,
+.online-clubs-panel {
+  padding: 24px;
+}
+
+.map-city-panel {
+  display: grid;
+  gap: 20px;
+}
+
+.map-city-list,
+.map-club-stack,
+.online-clubs-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.map-city-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.map-city-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 56px;
+  padding: 0 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(37, 35, 41, 0.08);
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--ink);
+  text-align: left;
+}
+
+.map-city-item span {
+  color: var(--muted);
+}
+
+.map-city-item strong {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.2rem;
+}
+
+.map-city-item.is-active {
+  border-color: rgba(107, 75, 180, 0.18);
+  background: rgba(107, 75, 180, 0.08);
+}
+
+.map-club-card {
+  display: grid;
+  grid-template-columns: 116px 1fr;
+  gap: 14px;
+  padding: 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(37, 35, 41, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.map-club-card:hover,
+.online-club-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+
+.map-club-thumb {
+  min-height: 136px;
+  border-radius: 14px;
+  background-size: cover;
+  background-position: center;
+}
+
+.map-club-body {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.map-club-body h3,
+.map-club-body p,
+.map-club-meta {
+  margin: 0;
+}
+
+.map-club-body h3 {
+  font-size: 1.3rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.map-club-body p,
+.map-club-meta {
+  color: var(--muted);
+}
+
+.map-club-body p {
+  line-height: 1.48;
+}
+
+.map-club-meta {
+  display: grid;
+  gap: 4px;
+  font-size: 0.9rem;
+}
+
+.map-club-meta strong {
+  color: var(--purple);
+  font-size: 0.9rem;
+}
+
+.online-clubs-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 20px;
+}
+
+.online-club-card {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(37, 35, 41, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(244, 240, 251, 0.86));
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.online-club-card strong {
+  font-size: 1.06rem;
+}
+
+.online-club-card span,
+.online-club-card p {
+  color: var(--muted);
+}
+
+.online-club-card p {
+  margin: 0;
+  line-height: 1.5;
+}
+
 .empty-state {
   display: grid;
   gap: 10px;
@@ -1122,6 +1504,12 @@ img {
     justify-items: center;
   }
 
+  .spain-map-layout,
+  .map-overview,
+  .online-clubs-grid {
+    grid-template-columns: 1fr;
+  }
+
   .topbar-meta {
     justify-self: center;
   }
@@ -1155,6 +1543,12 @@ img {
   .app-main,
   .topbar {
     padding-inline: 18px;
+  }
+
+  .spain-map-card,
+  .map-city-panel,
+  .online-clubs-panel {
+    padding: 18px;
   }
 
   .topbar-nav {
@@ -1210,11 +1604,43 @@ img {
     bottom: 14px;
   }
 
+  .spain-map-board {
+    min-height: 540px;
+    padding: 18px;
+  }
+
+  .spain-map-illustration {
+    inset: 46px 12px 88px;
+    width: calc(100% - 24px);
+    height: calc(100% - 134px);
+  }
+
+  .map-point-label {
+    min-width: 84px;
+    padding: 8px 10px;
+    font-size: 0.76rem;
+  }
+
+  .map-city-list,
+  .map-club-card,
+  .online-clubs-grid {
+    grid-template-columns: 1fr;
+  }
+
   .filter-bar,
   .club-grid,
   .detail-stat-grid,
   .profile-grid {
     grid-template-columns: 1fr;
+  }
+
+  .pagination {
+    align-items: stretch;
+  }
+
+  .pagination-controls {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .suggestion-item,

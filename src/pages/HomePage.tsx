@@ -4,6 +4,7 @@ import { ClubDetailHeader } from '../components/ClubDetailHeader'
 import { ClubGrid } from '../components/ClubGrid'
 import { FilterBar } from '../components/FilterBar'
 import { Hero } from '../components/Hero'
+import { Pagination } from '../components/Pagination'
 import { SuggestedClubs } from '../components/SuggestedClubs'
 import type { ClubFilters } from '../domain/clubs/value-objects/ClubFilters'
 import type { ReaderProfile } from '../domain/profiles/entities/ReaderProfile'
@@ -19,8 +20,11 @@ const initialFilters: ClubFilters = {
   genre: 'all',
 }
 
+const CLUBS_PER_PAGE = 6
+
 export function HomePage({ profile }: HomePageProps) {
   const [filters, setFilters] = useState<ClubFilters>(initialFilters)
+  const [currentPage, setCurrentPage] = useState(1)
   const {
     clubs,
     filteredClubs,
@@ -29,6 +33,11 @@ export function HomePage({ profile }: HomePageProps) {
     availableGenres,
     featuredClub,
   } = useClubCatalog(filters, profile)
+
+  const totalPages = Math.max(1, Math.ceil(filteredClubs.length / CLUBS_PER_PAGE))
+  const safeCurrentPage = Math.min(currentPage, totalPages)
+  const pageStart = (safeCurrentPage - 1) * CLUBS_PER_PAGE
+  const paginatedClubs = filteredClubs.slice(pageStart, pageStart + CLUBS_PER_PAGE)
 
   return (
     <>
@@ -42,10 +51,24 @@ export function HomePage({ profile }: HomePageProps) {
             genres={availableGenres}
             visibleCount={filteredClubs.length}
             totalCount={clubs.length}
-            onChange={setFilters}
+            onChange={(nextFilters) => {
+              setFilters(nextFilters)
+              setCurrentPage(1)
+            }}
           />
 
-          <ClubGrid clubs={filteredClubs} />
+          <ClubGrid clubs={paginatedClubs} />
+
+          {filteredClubs.length > CLUBS_PER_PAGE ? (
+            <Pagination
+              currentPage={safeCurrentPage}
+              totalPages={totalPages}
+              pageStart={pageStart}
+              pageSize={CLUBS_PER_PAGE}
+              totalItems={filteredClubs.length}
+              onPageChange={setCurrentPage}
+            />
+          ) : null}
         </div>
 
         <aside className="workspace-side">
