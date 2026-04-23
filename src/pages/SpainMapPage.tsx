@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { listClubs } from '../application/clubs/use-cases/listClubs'
+import spainMapBackground from '../assets/spain-map-bg.png'
 import type { Club } from '../domain/clubs/entities/Club'
 import { clubRepository } from '../infrastructure/container'
 
@@ -95,34 +96,11 @@ export function SpainMapPage() {
           </div>
 
           <div className="spain-map-board">
-            <svg
-              className="spain-map-illustration"
-              viewBox="0 0 640 520"
+            <div
+              className="spain-map-backdrop"
+              style={{ backgroundImage: `url(${spainMapBackground})` }}
               aria-hidden="true"
-            >
-              <path
-                className="spain-map-shape"
-                d="M77 160c18-25 63-49 105-57l89-63 112 20 65 37 46 5 65 63-8 87-34 51-9 51-55 27-39 64-65 8-51-31-36 17-58-11-41-54-57-12-55-39-9-72 30-41z"
-              />
-              <path
-                className="spain-map-outline"
-                d="M77 160c18-25 63-49 105-57l89-63 112 20 65 37 46 5 65 63-8 87-34 51-9 51-55 27-39 64-65 8-51-31-36 17-58-11-41-54-57-12-55-39-9-72 30-41z"
-              />
-              <path
-                className="spain-map-interior"
-                d="M198 171l72-48 108 17 74 48 74 20"
-              />
-              <path
-                className="spain-map-interior"
-                d="M171 275l106-23 97 13 86 45"
-              />
-              <path
-                className="spain-map-interior"
-                d="M253 347l90 28 92-16"
-              />
-              <ellipse className="spain-map-island" cx="556" cy="414" rx="34" ry="11" />
-              <ellipse className="spain-map-island" cx="598" cy="430" rx="20" ry="8" />
-            </svg>
+            />
 
             <div className="spain-map-points">
               {cityClusters.map((cluster) => (
@@ -137,21 +115,21 @@ export function SpainMapPage() {
                   style={{ left: cluster.left, top: cluster.top }}
                   onClick={() => setSelectedCity(cluster.city)}
                   aria-pressed={cluster.city === selectedCluster?.city}
-                >
-                  <span
-                    className="map-point-core"
-                    style={{
-                      width: `${34 + cluster.clubs.length * 8}px`,
+                  >
+                    <span
+                      className="map-point-core"
+                      style={{
+                        width: `${34 + cluster.clubs.length * 8}px`,
                       height: `${34 + cluster.clubs.length * 8}px`,
-                    }}
-                  />
-                  <span className="map-point-label">
-                    {cluster.city}
-                    <strong>{cluster.clubs.length} clubes</strong>
-                  </span>
-                </button>
-              ))}
-            </div>
+                      }}
+                    />
+                    <span className="map-point-label">
+                      <span className="map-point-city">{cluster.city}</span>
+                      <strong className="map-point-count">{cluster.clubs.length}</strong>
+                    </span>
+                  </button>
+                ))}
+              </div>
 
             <div className="map-legend" aria-hidden="true">
               <span className="map-legend-dot small" />

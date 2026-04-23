@@ -66,6 +66,9 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
           <div className="section-header">
             <div className="section-kicker">Afinidad</div>
             <h2 className="section-title">Como encaja contigo</h2>
+            <p className="section-subtitle">
+              Una lectura rapida del match para que se entienda en segundos.
+            </p>
           </div>
 
           {!profile ? (
@@ -76,17 +79,31 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
               ctaTo="/perfil"
             />
           ) : relatedSuggestion ? (
-            <div className="suggestion-item">
-              <strong>Match detectado</strong>
-              <p>Este club aparece bien posicionado para tu perfil actual.</p>
-              <div className="suggestion-reasons">
+            <div className="affinity-card">
+              <div className="affinity-card-top">
+                <div>
+                  <strong className="affinity-eyebrow">Match detectado</strong>
+                  <p className="affinity-copy">
+                    Este club aparece bien posicionado para tu perfil actual.
+                  </p>
+                </div>
+
+                <div className="affinity-score-block">
+                  <span className="affinity-score-value">{relatedSuggestion.score}</span>
+                  <span className="affinity-score-label">puntos de afinidad</span>
+                </div>
+              </div>
+
+              <div className="affinity-divider" />
+
+              <div className="affinity-reasons">
                 {relatedSuggestion.reasons.map((reason) => (
-                  <span className="reason-pill" key={reason}>
-                    {reason}
-                  </span>
+                  <div className="affinity-reason" key={reason}>
+                    <span className="affinity-reason-dot" aria-hidden="true" />
+                    <span>{reason}</span>
+                  </div>
                 ))}
               </div>
-              <span className="suggestion-score">{relatedSuggestion.score} puntos de afinidad</span>
             </div>
           ) : (
             <EmptyState
