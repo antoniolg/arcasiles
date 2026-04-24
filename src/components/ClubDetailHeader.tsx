@@ -20,6 +20,17 @@ export function ClubDetailHeader({
           <p className="page-copy">{club.description}</p>
         </div>
 
+        <div className="detail-availability">
+          <div>
+            <span>Proxima sesion</span>
+            <strong>{club.nextDate}</strong>
+          </div>
+          <div>
+            <span>Plazas libres</span>
+            <strong>{club.spotsLeft}</strong>
+          </div>
+        </div>
+
         <div className="detail-stat-grid">
           <div className="detail-stat">
             <span>{club.modality === 'online' ? 'Online' : 'Presencial'}</span>
@@ -39,10 +50,6 @@ export function ClubDetailHeader({
           <div className="detail-row">
             <span>Proxima lectura</span>
             <strong>{club.nextBook}</strong>
-          </div>
-          <div className="detail-row">
-            <span>Sesion</span>
-            <strong>{club.nextDate}</strong>
           </div>
           <div className="detail-row">
             <span>Ubicacion</span>

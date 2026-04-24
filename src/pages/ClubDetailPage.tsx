@@ -1,4 +1,4 @@
-import { type CSSProperties, type FormEvent, useEffect, useState } from 'react'
+import { type FormEvent, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ClubDetailHeader } from '../components/ClubDetailHeader'
 import { EmptyState } from '../components/EmptyState'
@@ -67,18 +67,8 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
   const [message, setMessage] = useState('')
   const [requestError, setRequestError] = useState('')
 
-  const inputStyle: CSSProperties = {
-    width: '100%',
-    marginTop: '8px',
-    border: '1px solid var(--line)',
-    borderRadius: '10px',
-    minHeight: '46px',
-    padding: '0 12px',
-    color: 'var(--ink)',
-    background: 'rgba(255, 255, 255, 0.9)',
-  }
-
   const currentRequest = club ? joinRequests.find((request) => request.clubId === club.id) : null
+  const affinityProgress = relatedSuggestion ? Math.min(100, relatedSuggestion.score * 22) : 0
 
   useEffect(() => {
     saveJoinRequests(joinRequests)
@@ -147,19 +137,23 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
   return (
     <section className="detail-layout section-shell">
       <div>
-        <ClubDetailHeader club={club} hasRequested={Boolean(currentRequest)} onRequestJoin={() => setIsJoinFlowOpen(true)} />
+        <ClubDetailHeader
+          club={club}
+          hasRequested={Boolean(currentRequest)}
+          onRequestJoin={() => setIsJoinFlowOpen(true)}
+        />
 
-        <div className="detail-card" style={{ marginTop: '24px' }}>
+        <div className="detail-card detail-experience-card">
           <div className="section-header">
             <div className="section-kicker">Experiencia</div>
-            <h2>Una ficha lista para decidir si quieres entrar</h2>
+            <h2>Antes de entrar</h2>
             <p className="section-subtitle">
-              El foco es que la persona vea contexto, siguiente lectura y una llamada clara a la accion sin perder el tono editorial.
+              Lo importante de este club en una lectura rapida.
             </p>
           </div>
 
-          <div className="detail-list">
-            <div className="detail-row">
+          <div className="experience-grid">
+            <div className="experience-item">
               <span>Tipo de experiencia</span>
               <strong>
                 {club.modality === 'online'
@@ -167,12 +161,12 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
                   : 'Encuentro en ciudad con aforo limitado'}
               </strong>
             </div>
-            <div className="detail-row">
+            <div className="experience-item">
               <span>Ritmo</span>
               <strong>{club.pace}</strong>
             </div>
-            <div className="detail-row">
-              <span>Motivo para entrar</span>
+            <div className="experience-item">
+              <span>Lo diferencial</span>
               <strong>
                 {club.genres[0]} + conversacion cuidada + siguiente libro visible
               </strong>
@@ -187,7 +181,7 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
             <div className="section-kicker">Afinidad</div>
             <h2 className="section-title">Como encaja contigo</h2>
             <p className="section-subtitle">
-              Una lectura rapida del match para que se entienda en segundos.
+              Match calculado con tu ciudad, modalidad y generos favoritos.
             </p>
           </div>
 
@@ -204,7 +198,7 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
                 <div>
                   <strong className="affinity-eyebrow">Match detectado</strong>
                   <p className="affinity-copy">
-                    Este club aparece bien posicionado para tu perfil actual.
+                    Buen encaje para tu perfil lector actual.
                   </p>
                 </div>
 
@@ -214,7 +208,9 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
                 </div>
               </div>
 
-              <div className="affinity-divider" />
+              <div className="affinity-meter" aria-hidden="true">
+                <span style={{ width: `${affinityProgress}%` }} />
+              </div>
 
               <div className="affinity-reasons">
                 {relatedSuggestion.reasons.map((reason) => (
@@ -235,19 +231,24 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
 
         <section className="panel">
           <div className="section-header">
-            <div className="section-kicker">Unirse</div>
-            <h2 className="section-title">Solicitud mockeada</h2>
+            <div className="section-kicker">Solicitud</div>
+            <h2 className="section-title">Unirte al club</h2>
             <p className="section-subtitle">
-              En la demo enviamos la solicitud localmente para que veas el flujo completo sin backend.
+              Deja una nota breve para que la organizacion pueda responderte.
             </p>
           </div>
 
           {currentRequest ? (
-            <div className="detail-list">
-              <div className="detail-row">
-                <span>Estado</span>
-                <strong>Solicitud enviada</strong>
+            <div className="join-status-card">
+              <div className="join-status-head">
+                <span className="join-status-dot" aria-hidden="true" />
+                <div>
+                  <strong>Solicitud enviada</strong>
+                  <span>La organizacion tiene tus datos de contacto.</span>
+                </div>
               </div>
+
+              <div className="detail-list compact-list">
               <div className="detail-row">
                 <span>Nombre</span>
                 <strong>{currentRequest.attendeeName}</strong>
@@ -260,8 +261,9 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
                 <span>Fecha</span>
                 <strong>{formatJoinDate(currentRequest.requestedAt)}</strong>
               </div>
+              </div>
 
-              <div style={{ display: 'flex', gap: '12px', marginTop: '12px' }}>
+              <div className="join-actions">
                 <button type="button" className="button-primary" onClick={handleEditRequest}>
                   Editar solicitud
                 </button>
@@ -274,10 +276,10 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
             <div>
               {!isJoinFlowOpen ? (
                 <button type="button" className="button-primary" onClick={() => setIsJoinFlowOpen(true)}>
-                  Simular solicitud
+                  Solicitar plaza
                 </button>
               ) : (
-                <form onSubmit={handleRequestSubmit} className="detail-list" style={{ gap: '14px' }}>
+                <form onSubmit={handleRequestSubmit} className="join-form">
                   <label>
                     Tu nombre
                     <input
@@ -286,7 +288,6 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
                       onChange={(event) => setAttendeeName(event.target.value)}
                       placeholder="Ej: Ana Ruiz"
                       className="join-input"
-                      style={inputStyle}
                       required
                     />
                   </label>
@@ -298,13 +299,12 @@ export function ClubDetailPage({ profile }: ClubDetailPageProps) {
                       placeholder="Dime por qué te apetece unirte..."
                       rows={3}
                       className="join-input"
-                      style={{ ...inputStyle, resize: 'vertical', paddingTop: '10px', paddingBottom: '10px' }}
                     />
                   </label>
 
-                  {requestError ? <p style={{ margin: 0 }}>{requestError}</p> : null}
+                  {requestError ? <p className="form-error">{requestError}</p> : null}
 
-                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                  <div className="join-actions">
                     <button type="submit" className="button-primary">
                       Enviar solicitud
                     </button>
